@@ -1,0 +1,163 @@
+Levels of Abstraction :
+1.Physical level:
+	>>Lowest level
+	>>How data actually stored
+2.Logical Level:
+	>>Middle level
+	>>What types of data are stored and what are the relations between data.
+3.View Level:
+	>>Top level of abstruction
+	>>at this point application programmers or interfaces designed such away that which will 
+	  be accessed by the user according to the data required.
+
+Instance:
+	>> Contents of database 
+
+ER Diagram :
+	Rectangles >> Entity
+	Ellipses>> Attributes
+		Double Ellipses >>Multivalued attributes 
+		Dash ellipses >> Derived attributes (The attributes is not inserted and can be get from other attributes )
+	Underline >>Primary Key 
+			P.K>> Attributes that uniquely identifies each record
+
+	Super Key >> Many attributes uniquely indicates one ellips.
+
+	Candidate key >> Less than super key uniquely indicates one ellips 
+
+	Foreign key>> kindda primary key .Foreign key helps to establish the mapping between two or more entities
+
+	Domain >> Attribute Value is permited {Those attribute is applicable}
+
+
+
+Weak Entity>> does not have a primary key {Double rectangle}
+	Discriminator acts like a kind of primary key.
+
+jr sathe relation e ace oita r primary and weak entity r ekta attribute niye Discriminator form hoy
+
+Generalizaton >> Common attribute in both parent and child
+Specialization >>  
+
+
+
+1.Raw facts and figures that on their own have no meaning is called data and 
+2.when data is processed within  a context to give it meaning then it is Information and 
+3.understanding the relationship between pieces of information and what to actually do with the information is called Knowledge.
+
+
+
+
+
+
+
+
+
+
+Sql syntex :
+
+1.select * from TABLE_NAME ;      >> * means everything 
+2.select COLUM_NAME1 , COLUM_NAME2 from TABLE_NAME ;
+3.select 12*COLUM_NAME+1200 as NAME from TABLE_NAME ;
+4.select COLUM_NAME1 , COLUM_NAME2 , NULL from TABLE_NAME ; { Nothing is inserted in NULL table ; A null is a value that is unavailable, unassigned, unknown, or inapplicable!!! NULL is not zero or blank space }
+5.select * from TABLE_NAME where COLUM_NAME=Conditon ;	{Condition}
+6.select COLUM_NAME1 , COLUM_NAME2 from TABLE_NAME where COLUM_NAME1='DATA' ;
+7.select COLUM_NAME1 as "NAME1" from TABLE_NAME ;
+
+WHERE:
+8.select COLUM_NAME1 from TABLE_NAME where COLUM_NAME2 between lowerlimit and upperlimit ;{not between} {<=}
+9.select COLUM_NAME1 from TABLE_NAME where COLUM_NAME2 is NULL:{is not null}
+
+IN 
+10.select COLUM_NAME1 from TABLE_NAME where COLUM_NAME2 in(value1,value2,..,valueN) {not in}
+
+
+
+fUNCTIONS:::>>>>>>>>>>>>>>>>>
+cONVERSION
+
+UPPER// LOWER // INITCAP>>
+	1.SELECT LOWER(ENAME) , UPPER(ENAME) , INITCAP(ENAME) FROM EMP
+	2.SELECT JOB FROM EMP WHERE INITCAP(ENAME)='Smith'
+	3.SELECT JOB FROM EMP WHERE LOWER(ENAME)='smith'
+	4.SELECT JOB FROM EMP WHERE UPPER(ENAME)='SMITH'
+
+CARACTER MANUPULPATION:
+	CONCAT>>
+		1.SELECT CONCAT('SHIFAT ' ,'MAGI') AS "MAGIR LIST" FROM EMP WHERE SAL=800
+	SUBSTR>> SUBSTR('STRING',UPPERLIMIT,LOWERLIMIT)
+		2.SELECT * FROM EMP WHERE SUBSTR(JOB,6,8)='MAN'
+	LENGTH>>
+		3.SELECT * FROM EMP WHERE LENGTH(JOB)=8
+		4.SELECT LENGTH(JOB) AS JOB_LENGTH FROM EMP
+	INSTR>>
+		5.SELECT  JOB ,INSTR(JOB,'M') FROM EMP
+		6.SELECT  ENAME ,JOB  FROM EMP WHERE INSTR(JOB,'M')=6
+
+	ROUND>>
+		7.SELECT ROUND(SAL/3,2) FROM EMP
+	TRUNC>>
+		8.SELECT TRUNC(SAL/3,2) FROM EMP
+	MOD>>
+		9.SELECT TRUNC(MOD(SAL/3,2)) FROM EMP
+
+**SELECT ENAME , SAL COMM, MOD (SAL, COMM) FROM EMP WHERE JOB='SALESMAN'
+
+	DATE OPERATION:
+DIFFERENCE OF DATES 10.SELECT ENAME , TRUNC((SYSDATE-HIREDATE)/7,2) WEEK FROM EMP WHERE DEPTNO=10
+MONTHS_BETWEEN	    11.SELECT ROUND(MONTHS_BETWEEN(SYSDATE , '10-SEP-00')/12) FROM DUAL
+ADD MONTHS	    12.SELECT ADD_MONTHS(SYSDATE,6) FROM DUAL
+NEXT DAY	    13.SELECT NEXT_DAY(SYSDATE,'SUNDAY') FROM DUAL
+LAST DAY   	    14.SELECT LAST_DAY(SYSDATE) FROM DUAL
+		    15.SELECT LAST_DAY('10-feb-12') FROM DUAL		
+
+
+Group Functions:
+1.SELECT DEPTNO,ROUND(AVG(SAL)) FROM EMP GROUP BY DEPTNO
+2.SELECT DEPTNO,JOB,SUM(SAL) FROM EMP GROUP BY DEPTNO ,JOB ORDER BY JOB
+3.SELECT DEPTNO , MAX(SAL) FROM EMP HAVING AVG(SAL)>2000  GROUP BY DEPTNO
+4.SELECT DEPTNO , MAX(SAL) FROM EMP GROUP BY DEPTNO HAVING AVG(SAL)>2000
+
+
+NVL OPERATION:
+**SELECT AVG(NVL(COMM,0)) FROM EMP >>NVL(COLNO,NUMBER INSTEAD OF NULL)
+
+COUNT:
+1. SELECT COUNT(*) FROM EMP WHERE DEPTNO=30
+
+
+Creating Table:
+string==VARCHAR2
+size is not mandatory for number
+1.create table TABLE_NAME(COL1 datatype(size),.....,COL2 datatype(size) );
+Add col;
+2.alter table  TABLE_NAME add(COL_NAME datatype(size);
+delete
+3.alter table  TABLE_NAME drop column COL_NAME;
+modify datatype of inserted column
+4.alter table  TABLE_NAME modify(COL1 different datatype(size));
+Rename table:
+5.rename TABLE_NAME to NEW_TNAEM; 
+Truncate >> Row data will deleted but structure will be remain same
+6.truncate table (TABLE_NAME);
+RENAME COLUMN
+7.ALTER TABLE table_name RENAME COLUMN col1 TO col2;
+
+
+
+INSERTATION:
+1.insert into TABLE_NAME(COL1,COL2,COL3) values ('c1data','c2data',c3data);
+DELETATION(row):
+2.delet from TABLE_NAME where COL_NAME (is null)
+UPDATE:
+3.update TABLE_NAME set COL_NAME=NEW_VALUE where condition ;
+
+SHOW ALL CNSTRINCT:
+1.SELECT * FROM user_cons_columns WHERE table_name = 'emp';
+
+Count returns row no ;
+AVG ER JNNE WHERE USE KORA JABE NA HAVING USE KORA LAHBE 
+
+PROBLEMS:
+SELECT EMPNO FROM EMP GROUP BY EMPNO HAVING EMPNO=MAX(EMPNO)  >> EKHN E EMPNO CHARA ENAME KN KORA JAY NA 
+
